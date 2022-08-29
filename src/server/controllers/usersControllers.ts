@@ -11,7 +11,8 @@ const registerUser = async (
 ) => {
   const data: ProtoUser = await req.body.user;
   data.password = await hashCreator(data.password);
-  [data.img] = req.body.files;
+  const [...img] = req.body.files;
+  data.img = img;
 
   try {
     const newUser = await User.create(data);
