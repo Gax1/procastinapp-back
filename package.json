@@ -4,11 +4,14 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
     "ts": "tsc",
     "ts:dev": "tsc -w",
     "start": "node .",
     "start:dev": "nodemon -q",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "jest src --passWithNoTests",
+    "test-cov": "jest src --coverage"
   },
   "keywords": [],
   "author": "",
@@ -28,5 +31,8 @@
     "ts-jest": "^28.0.7",
     "typescript": "^4.7.4",
     "husky": "^8.0.0"
+  },
+  "engines": {
+    "node": "^18.7.0"
   }
 }
