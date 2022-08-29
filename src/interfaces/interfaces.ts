@@ -8,7 +8,7 @@ export interface CustomError extends Error {
 export interface ProtoUser {
   username: string;
   password: string;
-  img: String;
+  img: string;
 }
 
 export interface IUser extends ProtoUser {
