@@ -11,7 +11,8 @@
     "start:dev": "nodemon -q",
     "prepare": "husky install",
     "test": "jest src --passWithNoTests",
-    "test-cov": "jest src --coverage"
+    "test-coverage": "jest --coverage --passWithNoTests",
+    "test-cov": "jest src --coverage -w"
   },
   "keywords": [],
   "author": "",
