@@ -1,4 +1,4 @@
-import dataBaseConnection from "./database";
+import dataBaseConnection from "./database/index";
 import "./dotenv";
 import startServer from "./server/startServer";
 
