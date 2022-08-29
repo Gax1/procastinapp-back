@@ -1,6 +1,10 @@
-interface CustomError extends Error {
+export interface CustomError extends Error {
   statusCode: number;
   publicMessage: string;
 }
 
-export default CustomError;
+export interface ProtoUser {
+  username: string;
+  password: string;
+  img: String;
+}

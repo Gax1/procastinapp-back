@@ -2,7 +2,7 @@ import "../../dotenv";
 import Debug from "debug";
 import chalk from "chalk";
 import { NextFunction, Request, Response } from "express";
-import CustomError from "../../interfaces/interfaces";
+import { CustomError } from "../../interfaces/interfaces";
 
 const debug = Debug("procastinapp:error");
 
