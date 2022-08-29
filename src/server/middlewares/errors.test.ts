@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import CustomError from "../../interfaces/interfaces";
-import customErrorGenerator from "../../utils/customErrorGenerator";
+import { CustomError } from "../../interfaces/interfaces";
+import customErrorGenerator from "../../utils/customError/customErrorGenerator";
 import { generalError, notFoundError } from "./errors";
 
 describe("Given a notFound middleware", () => {

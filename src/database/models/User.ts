@@ -10,10 +10,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  img: {
-    type: Buffer,
-    contentType: String,
-  },
+  img: { type: String },
   tasks: [{ type: Schema.Types.ObjectId, ref: "Tasks" }],
 });
 
