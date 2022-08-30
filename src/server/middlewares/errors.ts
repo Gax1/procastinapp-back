@@ -2,6 +2,7 @@ import "../../dotenv";
 import Debug from "debug";
 import chalk from "chalk";
 import { NextFunction, Request, Response } from "express";
+import { ValidationError } from "express-validation";
 import { CustomError } from "../../interfaces/interfaces";
 
 const debug = Debug("procastinapp:error");
@@ -20,6 +21,12 @@ export const generalError = (
   const errorCode = error.statusCode ?? 500;
   const errorMessage =
     error.publicMessage ?? "Error in the server, please try again later";
+
+  if (error instanceof ValidationError) {
+    error.details.body.forEach((errorInfo) => {
+      debug(chalk.redBright(errorInfo.message));
+    });
+  }
 
   debug(chalk.redBright(error.message));
 
