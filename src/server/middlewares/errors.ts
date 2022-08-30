@@ -12,7 +12,7 @@ export const notFoundError = (req: Request, res: Response) => {
 };
 
 export const generalError = (
-  error: CustomError,
+  error: CustomError | ValidationError,
   req: Request,
   res: Response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -20,7 +20,8 @@ export const generalError = (
 ) => {
   const errorCode = error.statusCode ?? 500;
   const errorMessage =
-    error.publicMessage ?? "Error in the server, please try again later";
+    (error as CustomError).publicMessage ??
+    "Error in the server, please try again later";
 
   if (error instanceof ValidationError) {
     error.details.body.forEach((errorInfo) => {
