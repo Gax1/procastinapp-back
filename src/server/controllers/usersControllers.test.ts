@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import User from "../../database/models/User";
 import { ProtoUser } from "../../interfaces/interfaces";
-import registerUser from "./usersControllers";
+import { registerUser } from "./usersControllers";
 
 describe("Given a registration controller", () => {
   jest.mock("../../utils/auth/authFunctions", () => ({

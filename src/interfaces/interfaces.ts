@@ -15,3 +15,13 @@ export interface IUser extends ProtoUser {
   id: string;
   tasks?: Schema.Types.ObjectId[];
 }
+
+export interface JwtPayload {
+  id: string;
+  username: string;
+}
+
+export interface LoginUser {
+  username: string;
+  password: string;
+}
