@@ -25,3 +25,24 @@ export interface LoginUser {
   username: string;
   password: string;
 }
+
+export interface BodyType {
+  message: string;
+  path: [string];
+  type: string;
+  context: {
+    label: string;
+    value: string;
+    key: string;
+  };
+}
+
+export interface ErrorValidate {
+  name: string;
+  message: string;
+  statusCode: number;
+  error: string;
+  details: {
+    body: BodyType[];
+  };
+}

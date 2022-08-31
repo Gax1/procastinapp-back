@@ -3,11 +3,12 @@ import User from "../../database/models/User";
 import { ProtoUser } from "../../interfaces/interfaces";
 import { registerUser } from "./usersControllers";
 
+jest.mock("../../utils/auth/authFunctions", () => ({
+  ...jest.requireActual("../../utils/auth/authFunctions"),
+  hashCreator: () => jest.fn().mockResolvedValue("#"),
+}));
+
 describe("Given a registration controller", () => {
-  jest.mock("../../utils/auth/authFunctions", () => ({
-    ...jest.requireActual("../../utils/auth/authFunctions"),
-    hashCreator: () => jest.fn().mockResolvedValue("#"),
-  }));
   const mockUser: ProtoUser = {
     username: "mockName",
     password: "password",

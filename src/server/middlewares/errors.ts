@@ -2,8 +2,7 @@ import "../../dotenv";
 import Debug from "debug";
 import chalk from "chalk";
 import { NextFunction, Request, Response } from "express";
-import { ValidationError } from "express-validation";
-import { CustomError } from "../../interfaces/interfaces";
+import { CustomError, ErrorValidate } from "../../interfaces/interfaces";
 
 const debug = Debug("procastinapp:error");
 
@@ -12,7 +11,7 @@ export const notFoundError = (req: Request, res: Response) => {
 };
 
 export const generalError = (
-  error: CustomError | ValidationError,
+  error: CustomError | ErrorValidate,
   req: Request,
   res: Response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -22,13 +21,11 @@ export const generalError = (
   const errorMessage =
     (error as CustomError).publicMessage ??
     "Error in the server, please try again later";
-
-  if (error instanceof ValidationError) {
-    error.details.body.forEach((errorInfo) => {
+  if ((error as ErrorValidate).details) {
+    (error as ErrorValidate).details.body.forEach((errorInfo) => {
       debug(chalk.redBright(errorInfo.message));
     });
   }
-
   debug(chalk.redBright(error.message));
 
   res.status(errorCode).json({ Error: errorMessage });

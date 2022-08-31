@@ -18,10 +18,10 @@ export const registerUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const data: ProtoUser = await req.body.user;
+  const data: ProtoUser = await req.body;
   data.password = await hashCreator(data.password);
-  const [...img] = req.body.files;
-  data.img = img;
+  // const [...img] = req.body.files;
+  // data.img = img;
 
   try {
     const newUser = await User.create(data);

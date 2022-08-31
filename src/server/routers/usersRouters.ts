@@ -6,7 +6,7 @@ import userRegisterCredentialsSchema from "../schemas/userCredentialsSchema";
 
 const usersRouter = express.Router();
 
-const uploader = multer({ dest: "uploads", limits: { fieldSize: 3000000 } });
+const uploader = multer({ dest: "uploads", limits: { fieldSize: 8000000 } });
 usersRouter.post("/login", loginUser);
 usersRouter.post(
   "/register",
