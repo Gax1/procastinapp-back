@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { ValidationError } from "express-validation";
 import { CustomError } from "../../interfaces/interfaces";
 import customErrorGenerator from "../../utils/customError/customErrorGenerator";
 import { generalError, notFoundError } from "./errors";
@@ -127,6 +128,31 @@ describe("Given a general error middleware", () => {
       );
 
       expect(res.json).toHaveBeenCalledWith({ Error: generalMessage });
+    });
+    describe("When it receives a validation error", () => {
+      const validationError = {
+        details: {
+          body: [{ message: "blablabla" }],
+        },
+      } as Partial<ValidationError>;
+
+      const req = {} as Partial<Request>;
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue({ Error: generalMessage }),
+      } as Partial<Response>;
+      const next: NextFunction = jest.fn();
+
+      test("Then it should should call the debug", () => {
+        generalError(
+          validationError as ValidationError,
+          req as Request,
+          res as Response,
+          next as NextFunction
+        );
+
+        expect(res.json).toHaveBeenCalledWith({ Error: generalMessage });
+      });
     });
   });
 });

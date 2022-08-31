@@ -9,7 +9,7 @@ const startServer = (port: number) => {
   // eslint-disable-next-line no-new
   new Promise((resolve, reject) => {
     const server = app.listen(port, () => {
-      debug(chalk.green(`Connected to server in port: ${port}`));
+      debug(chalk.green(`Connected to server in port: localhost:${port}`));
       resolve(true);
     });
     server.on("error", (error: Error) => {
