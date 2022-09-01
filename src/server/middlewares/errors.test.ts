@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ValidationError } from "express-validation";
-import { CustomError } from "../../interfaces/interfaces";
+import { CustomError, ErrorValidate } from "../../interfaces/interfaces";
 import customErrorGenerator from "../../utils/customError/customErrorGenerator";
 import { generalError, notFoundError } from "./errors";
 
@@ -131,10 +130,25 @@ describe("Given a general error middleware", () => {
     });
     describe("When it receives a validation error", () => {
       const validationError = {
+        name: "ValidationError",
+        message: "Validation Failed",
+        statusCode: 400,
+        error: "Bad Request",
         details: {
-          body: [{ message: "blablabla" }],
+          body: [
+            {
+              message: "error",
+              path: ["password"],
+              type: "string.empty",
+              context: {
+                label: "password",
+                value: "",
+                key: "password",
+              },
+            },
+          ],
         },
-      } as Partial<ValidationError>;
+      };
 
       const req = {} as Partial<Request>;
       const res = {
@@ -145,7 +159,7 @@ describe("Given a general error middleware", () => {
 
       test("Then it should should call the debug", () => {
         generalError(
-          validationError as ValidationError,
+          validationError as ErrorValidate,
           req as Request,
           res as Response,
           next as NextFunction

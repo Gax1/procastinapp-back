@@ -18,13 +18,15 @@ export const registerUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const data: ProtoUser = await req.body.user;
-  data.password = await hashCreator(data.password);
-  const [...img] = req.body.files;
-  data.img = img;
+  const { username, password, img }: ProtoUser = await req.body;
+  const encryptedPassword = await hashCreator(password);
 
   try {
-    const newUser = await User.create(data);
+    const newUser = await User.create({
+      username,
+      password: encryptedPassword,
+      img,
+    });
 
     res.status(201).json({ User: newUser });
   } catch (error) {
@@ -55,27 +57,13 @@ export const loginUser = async (
 
   try {
     findusers = await User.find({ username: user.username });
-    if (findusers.length === 0) {
-      next(userError);
-      return;
-    }
-  } catch (error) {
-    const finalError = customErrorGenerator(
-      403,
-      `name: ${(error as Error).name}; message: ${(error as Error).message}`,
-      "User or password invalid"
-    );
-    next(finalError);
-    return;
-  }
-  try {
     const isPasswordValid = await hashCompare(
       user.password,
       findusers[0].password
     );
     if (!isPasswordValid) {
-      userError.message = "Password is invalid";
       next(userError);
+      return;
     }
   } catch (error) {
     const finalError = customErrorGenerator(
