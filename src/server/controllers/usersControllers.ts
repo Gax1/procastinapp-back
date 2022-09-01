@@ -18,13 +18,15 @@ export const registerUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const data: ProtoUser = await req.body;
-  data.password = await hashCreator(data.password);
-  // const [...img] = req.body.files;
-  // data.img = img;
+  const { username, password, img }: ProtoUser = await req.body;
+  const encryptedPassword = await hashCreator(password);
 
   try {
-    const newUser = await User.create(data);
+    const newUser = await User.create({
+      username,
+      password: encryptedPassword,
+      img,
+    });
 
     res.status(201).json({ User: newUser });
   } catch (error) {

@@ -22,7 +22,6 @@ describe("Given a registration controller", () => {
         password: "password",
         img: "data of img",
       },
-      files: ["mock", "mock"],
     },
   } as Partial<Request>;
   describe("When it receives a request with a mock object", () => {
