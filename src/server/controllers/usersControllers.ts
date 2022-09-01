@@ -57,27 +57,13 @@ export const loginUser = async (
 
   try {
     findusers = await User.find({ username: user.username });
-    if (findusers.length === 0) {
-      next(userError);
-      return;
-    }
-  } catch (error) {
-    const finalError = customErrorGenerator(
-      403,
-      `name: ${(error as Error).name}; message: ${(error as Error).message}`,
-      "User or password invalid"
-    );
-    next(finalError);
-    return;
-  }
-  try {
     const isPasswordValid = await hashCompare(
       user.password,
       findusers[0].password
     );
     if (!isPasswordValid) {
-      userError.message = "Password is invalid";
       next(userError);
+      return;
     }
   } catch (error) {
     const finalError = customErrorGenerator(
