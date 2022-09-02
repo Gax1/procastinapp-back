@@ -3,14 +3,25 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import app from "..";
 import dataBaseConnection from "../../database";
+import User from "../../database/models/User";
+import { hashCreator } from "../../utils/auth/authFunctions";
 
 let mongoServer: MongoMemoryServer;
 
 beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
-  const mongoUrl = mongoServer.getUri();
+  const mongoUrl = await mongoServer.getUri();
 
   await dataBaseConnection(mongoUrl);
+});
+
+beforeEach(async () => {
+  const hashedPassword = await hashCreator("test-password");
+  await User.create({
+    username: "test-username",
+    password: hashedPassword,
+    img: "test-img",
+  });
 });
 
 afterAll(async () => {
@@ -18,7 +29,11 @@ afterAll(async () => {
   await mongoServer.stop();
 });
 
-describe("Given a register router", () => {
+afterEach(async () => {
+  await User.deleteMany({});
+});
+
+describe("Given a user router register endpoint", () => {
   describe("When it receives a request", () => {
     test("Then it shold return a status 201 and a json with a new user", async () => {
       const user = {
@@ -52,6 +67,41 @@ describe("Given a register router", () => {
         .expect(400);
 
       expect(body.Error).toStrictEqual(expectedError);
+    });
+  });
+});
+
+describe("Given a user router login endpoint", () => {
+  describe("When it receives a request", () => {
+    test("Then it should return a user with a token", async () => {
+      const loginUser = {
+        username: "test-username",
+        password: "test-password",
+      };
+
+      const { body } = await request(app)
+        .post("/users/login")
+        .send(loginUser)
+        .expect(200);
+
+      await expect(body.user).toHaveProperty("token");
+    });
+  });
+});
+
+describe("Given a user router login endpoint", () => {
+  describe("When it receives an incorrect request", () => {
+    test("Then it should return an error", async () => {
+      const wrongLogin = {
+        username: "test-username",
+      };
+
+      const { body } = await request(app)
+        .post("/users/login")
+        .send(wrongLogin)
+        .expect(403);
+
+      await expect(body).toHaveProperty("Error");
     });
   });
 });

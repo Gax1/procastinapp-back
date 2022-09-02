@@ -54,7 +54,6 @@ export const loginUser = async (
   );
 
   let findusers: IUser[];
-
   try {
     findusers = await User.find({ username: user.username });
     const isPasswordValid = await hashCompare(
