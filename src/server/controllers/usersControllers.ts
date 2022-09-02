@@ -28,7 +28,7 @@ export const registerUser = async (
       img,
     });
 
-    res.status(201).json({ User: newUser });
+    res.status(201).json({ user: newUser });
   } catch (error) {
     const customError = customErrorGenerator(
       400,

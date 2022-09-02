@@ -62,7 +62,7 @@ describe("Given a registration controller", () => {
       User.create = jest.fn().mockReturnValue(mockUser);
       await registerUser(req as Request, res as Response, next as NextFunction);
 
-      expect(res.json).toHaveBeenCalledWith({ User: mockUser });
+      expect(res.json).toHaveBeenCalledWith({ user: mockUser });
     });
   });
 
