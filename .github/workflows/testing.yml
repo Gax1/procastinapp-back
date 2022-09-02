@@ -17,4 +17,4 @@ jobs:
       - name: Testing
         run: npm test
         env:
-          GITHUB_TOKEN: ${{ secrets.SECRET }}
+          SECRET: ${{ secrets.SECRET }}
