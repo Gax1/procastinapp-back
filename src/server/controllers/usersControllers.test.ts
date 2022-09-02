@@ -4,10 +4,13 @@ import { ProtoUser } from "../../interfaces/interfaces";
 import customErrorGenerator from "../../utils/customError/customErrorGenerator";
 import { loginUser, registerUser } from "./usersControllers";
 
+let mockResultHashCompare = true;
+
 jest.mock("../../utils/auth/authFunctions", () => ({
   ...jest.requireActual("../../utils/auth/authFunctions"),
+
   hashCreator: () => "#",
-  hashCompare: () => true,
+  hashCompare: () => mockResultHashCompare,
   createToken: () => "testing",
 }));
 
@@ -59,7 +62,7 @@ describe("Given a registration controller", () => {
       User.create = jest.fn().mockReturnValue(mockUser);
       await registerUser(req as Request, res as Response, next as NextFunction);
 
-      expect(res.json).toHaveBeenCalledWith({ User: mockUser });
+      expect(res.json).toHaveBeenCalledWith({ user: mockUser });
     });
   });
 
@@ -137,16 +140,11 @@ describe("Given a login controller", () => {
       json: jest.fn().mockReturnThis(),
     } as Partial<Response>;
 
-    xtest("If the user fin method return an empty array should call the next function", async () => {
+    test("If the user fin method return an empty array should call the next function", async () => {
       const next: NextFunction = jest.fn();
       User.find = jest.fn().mockResolvedValue([{ password: "" }]);
 
-      jest.mock("../../utils/auth/authFunctions", () => ({
-        ...jest.requireActual("../../utils/auth/authFunctions"),
-        hashCreator: () => "#",
-        hashCompare: () => false,
-        createToken: () => "testing",
-      }));
+      mockResultHashCompare = false;
 
       const userError = customErrorGenerator(
         403,
