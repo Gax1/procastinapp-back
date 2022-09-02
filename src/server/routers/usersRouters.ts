@@ -3,7 +3,10 @@ import { validate } from "express-validation";
 import multer from "multer";
 import path from "path";
 import { loginUser, registerUser } from "../controllers/usersControllers";
-import userRegisterCredentialsSchema from "../schemas/userCredentialsSchema";
+import {
+  userRegisterCredentialsSchema,
+  userLoginCredentialsSchema,
+} from "../schemas/userCredentialsSchema";
 
 const usersRouter = express.Router();
 
@@ -19,5 +22,11 @@ usersRouter.post(
   uploader.single("img"),
   validate(userRegisterCredentialsSchema, {}, { abortEarly: false }),
   registerUser
+);
+
+usersRouter.post(
+  "/login",
+  validate(userLoginCredentialsSchema, {}, { abortEarly: false }),
+  loginUser
 );
 export default usersRouter;
