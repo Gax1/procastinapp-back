@@ -22,13 +22,13 @@ export const registerUser = async (
   const encryptedPassword = await hashCreator(password);
 
   try {
-    const newUser = await User.create({
+    await User.create({
       username,
       password: encryptedPassword,
       img,
     });
 
-    res.status(201).json({ user: newUser });
+    res.status(201).json({ message: "Succeed in registration" });
   } catch (error) {
     const customError = customErrorGenerator(
       400,
@@ -81,6 +81,8 @@ export const loginUser = async (
 
   const responseData = {
     user: {
+      username: findusers[0].username,
+      id: findusers[0].id,
       token: createToken(payload),
     },
   };

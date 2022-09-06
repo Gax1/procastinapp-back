@@ -47,7 +47,7 @@ describe("Given a user router register endpoint", () => {
         .send(user)
         .expect(201);
 
-      expect(body.user).toHaveProperty("username");
+      expect(body).toHaveProperty("message");
     });
   });
 });
