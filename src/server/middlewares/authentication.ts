@@ -27,8 +27,7 @@ const authentication = (
     next(CustomError);
     return;
   }
-  req.payload = tokenData as JwtPayload;
-
+  req.payload = tokenData;
   next();
 };
 

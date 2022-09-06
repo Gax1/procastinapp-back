@@ -45,11 +45,11 @@ describe("Given a authentication middleware", () => {
       expect(next).toHaveBeenCalled();
     });
   });
-  describe("When it receives a request without a header", () => {
-    const next = jest.fn() as NextFunction;
-
-    test("Then it should call the next function with a custom error", () => {
-      req.get = jest.fn().mockReturnValue("#");
+  describe("When it receives an unvalid token", () => {
+    test("Then it should call next with a custom error", () => {
+      jest.clearAllMocks();
+      mockJwtPayload = "error";
+      const next = jest.fn() as NextFunction;
 
       authentication(
         req as CustomRequest,
@@ -60,10 +60,11 @@ describe("Given a authentication middleware", () => {
       expect(next).toHaveBeenCalledWith(CustomError);
     });
   });
-  describe("When it receives an unvalid token", () => {
-    test("Then it should call next with a custom error", () => {
-      mockJwtPayload = "#";
-      const next = jest.fn() as NextFunction;
+  describe("When it receives a request without a header", () => {
+    const next = jest.fn() as NextFunction;
+
+    test("Then it should call the next function with a custom error", () => {
+      req.get = jest.fn().mockReturnValue("#");
 
       authentication(
         req as CustomRequest,
