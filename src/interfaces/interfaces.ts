@@ -1,4 +1,6 @@
+import { Request } from "express";
 import { Schema } from "mongoose";
+import { JwtPayload as Jwt } from "jsonwebtoken";
 
 export interface CustomError extends Error {
   statusCode: number;
@@ -45,4 +47,8 @@ export interface ErrorValidate {
   details: {
     body: BodyType[];
   };
+}
+
+export interface CustomRequest extends Request {
+  payload: Jwt;
 }
