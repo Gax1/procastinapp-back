@@ -17,7 +17,11 @@ const taskSchema = new Schema({
     type: String,
     required: true,
   },
-  owner: { type: Schema.Types.ObjectId, ref: "Users" },
+  img: {
+    type: String,
+    required: true,
+  },
+  owner: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 const Task = model("Task", taskSchema, "Tasks");
