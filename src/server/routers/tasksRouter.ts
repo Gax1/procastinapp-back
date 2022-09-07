@@ -4,6 +4,6 @@ import authentication from "../middlewares/authentication";
 
 const tasksRouter = express.Router();
 
-tasksRouter.get("/tasks", authentication, getAllTasks);
+tasksRouter.get("/my-day", authentication, getAllTasks);
 
 export default tasksRouter;
