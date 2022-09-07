@@ -11,7 +11,7 @@ const userSchema = new Schema({
     required: true,
   },
   img: { type: String },
-  tasks: [{ type: Schema.Types.ObjectId, ref: "Tasks" }],
+  tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
 });
 
 const User = model("User", userSchema, "Users");

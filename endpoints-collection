@@ -7,10 +7,85 @@
   },
   "item": [
     {
-      "name": "New Request",
+      "name": "login",
       "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{userApi}}/users/login",
+          "host": [
+            "{{userApi}}"
+          ],
+          "path": [
+            "users",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"naty\",\r\n    \"password\": \"naty\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{userApi}}/users/login",
+          "host": [
+            "{{userApi}}"
+          ],
+          "path": [
+            "users",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getAll",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTFkOTBhNjFjZDNkNDRjMmUyNTljYiIsInVzZXJuYW1lIjoiZ2FibyIsImlhdCI6MTY2MjUzNjI2N30.b2d6zxh6KSjreqm6QWaAn7n399Sk0OxTtGMVTwgHs2M",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
-        "header": []
+        "header": [],
+        "url": {
+          "raw": "{{useApi}}/tasks/my-day?date=07/22/2022&id=6311d90a61cd3d44c2e259cb",
+          "host": [
+            "{{useApi}}"
+          ],
+          "path": [
+            "tasks",
+            "my-day"
+          ],
+          "query": [
+            {
+              "key": "date",
+              "value": "07/22/2022"
+            },
+            {
+              "key": "id",
+              "value": "6311d90a61cd3d44c2e259cb"
+            }
+          ]
+        }
       },
       "response": []
     }

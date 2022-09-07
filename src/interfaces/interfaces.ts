@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { Schema } from "mongoose";
+import { ObjectId, Schema } from "mongoose";
 import { JwtPayload as Jwt } from "jsonwebtoken";
 
 export interface CustomError extends Error {
@@ -51,4 +51,13 @@ export interface ErrorValidate {
 
 export interface CustomRequest extends Request {
   payload: Jwt;
+}
+
+export interface Task {
+  title: string;
+  description: string;
+  importance: string;
+  date: string;
+  img: string;
+  owner: ObjectId;
 }
