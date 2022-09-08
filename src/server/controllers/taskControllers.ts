@@ -15,7 +15,7 @@ const getAllTasks = async (req: Request, res: Response, next: NextFunction) => {
     return;
   }
   const tasksOfDay = tasks.filter((task) => task.date === date);
-  res.status(200).json(tasksOfDay);
+  res.status(200).json({ tasks: tasksOfDay });
 };
 
 export default getAllTasks;
