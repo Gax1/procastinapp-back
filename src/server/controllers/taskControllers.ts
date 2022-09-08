@@ -31,12 +31,12 @@ export const createTask = async (
   const { id: ownerId } = req.query;
   const task = req.body;
   task.owner = ownerId;
-
   try {
     const newTask = await Task.create(task);
-
     const user = await User.findById(ownerId);
+
     user.tasks.push(newTask.id);
+
     await user.save();
 
     res.status(201).json({ task: newTask });
@@ -46,6 +46,7 @@ export const createTask = async (
       error.message,
       "Error creating the task"
     );
+
     next(customError);
   }
 };
