@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import Task from "../../database/models/Tasks";
-import getAllTasks from "./taskControllers";
+import { getAllTasks } from "./taskControllers";
 
 const mockedId = new mongoose.Types.ObjectId();
 
@@ -49,7 +49,7 @@ describe("Given a task controller", () => {
 
       await getAllTasks(req as Request, res as Response, next as NextFunction);
 
-      await expect(res.json).toHaveBeenCalledWith({tasks: [mockedFind[1]]});
+      await expect(res.json).toHaveBeenCalledWith({ tasks: [mockedFind[1]] });
     });
   });
   describe("When theres an error in the find", () => {
