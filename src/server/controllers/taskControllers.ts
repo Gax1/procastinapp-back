@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+
 import Task from "../../database/models/Tasks";
 import User from "../../database/models/User";
 import { Task as Itask } from "../../interfaces/interfaces";
@@ -29,15 +30,28 @@ export const createTask = async (
   next: NextFunction
 ) => {
   const { id: ownerId } = req.query;
-  const task = req.body;
-  task.owner = ownerId;
+
+  const { title, description, importance, date, img, backUpImg } =
+    await req.body;
+
   try {
-    const newTask = await Task.create(task);
+    const newTask = await Task.create({
+      title,
+      description,
+      importance,
+      date,
+      img,
+      backUpImg,
+      owner: ownerId,
+    });
+
     const user = await User.findById(ownerId);
 
     user.tasks.push(newTask.id);
 
     await user.save();
+
+    req.body = newTask;
 
     res.status(201).json({ task: newTask });
   } catch (error) {

@@ -21,6 +21,9 @@ const taskSchema = new Schema({
     type: String,
     required: true,
   },
+  backUpImg: {
+    type: String,
+  },
   owner: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
