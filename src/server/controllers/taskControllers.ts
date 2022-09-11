@@ -86,3 +86,38 @@ export const deleteTask = async (
     next(deleteError);
   }
 };
+
+export const editTask = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.query;
+
+  const task: Itask = req.body;
+
+  const editedTask: Itask = {
+    date: task.date,
+    title: task.title,
+    description: task.description,
+    img: task.img,
+    backUpImg: task.backUpImg,
+    owner: task.owner,
+    importance: task.importance,
+  };
+  try {
+    const updatedTask = await Task.findByIdAndUpdate(id, editedTask, {
+      new: true,
+    });
+
+    res.status(200).json({ task: updatedTask });
+  } catch (error) {
+    next(
+      customErrorGenerator(
+        400,
+        "Cannot update the task",
+        "Cannot update the task"
+      )
+    );
+  }
+};

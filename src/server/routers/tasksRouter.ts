@@ -4,6 +4,7 @@ import path from "path";
 import {
   createTask,
   deleteTask,
+  editTask,
   getAllTasks,
 } from "../controllers/taskControllers";
 import authentication from "../middlewares/authentication";
@@ -27,4 +28,5 @@ tasksRouter.post(
 );
 
 tasksRouter.delete("/my-day", deleteTask);
+tasksRouter.put("/my-day", uploader.single("img"), backUpImge, editTask);
 export default tasksRouter;

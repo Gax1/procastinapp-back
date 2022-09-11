@@ -59,5 +59,6 @@ export interface Task {
   importance: string;
   date: string;
   img: string;
+  backUpImg?: string;
   owner: ObjectId;
 }
