@@ -64,3 +64,25 @@ export const createTask = async (
     next(customError);
   }
 };
+
+export const deleteTask = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.query;
+
+    await Task.findByIdAndDelete(id);
+
+    res.status(201).json({ Message: "Tasks has been succesfully deleted" });
+  } catch (error) {
+    const deleteError = customErrorGenerator(
+      404,
+      error.message,
+      "Error deleting the task"
+    );
+
+    next(deleteError);
+  }
+};

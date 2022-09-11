@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import Task from "../../database/models/Tasks";
 import User from "../../database/models/User";
-import { createTask, getAllTasks } from "./taskControllers";
+import { createTask, deleteTask, getAllTasks } from "./taskControllers";
 
 const mockedId = new mongoose.Types.ObjectId();
 
@@ -115,6 +115,38 @@ describe("Given a createTask controller", () => {
       await createTask(req as Request, res as Response, next as NextFunction);
 
       await expect(next).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given a delete task controller", () => {
+  const req = {
+    query: { id: "test-id" },
+    body: {},
+  } as Partial<Request>;
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn().mockReturnThis(),
+  } as Partial<Response>;
+  const next = jest.fn();
+  describe("When called with a request", () => {
+    test("Then it should call the status method with a 201 and json with a message", async () => {
+      Task.findByIdAndDelete = jest.fn().mockResolvedValue("");
+
+      await deleteTask(req as Request, res as Response, next as NextFunction);
+
+      expect(res.status).toHaveBeenCalledWith(201);
+      expect(res.json).toHaveBeenCalledWith({
+        Message: "Tasks has been succesfully deleted",
+      });
+    });
+  });
+  describe("When it receives an error", () => {
+    test("Then it should call the next method", async () => {
+      Task.findByIdAndDelete = jest.fn().mockRejectedValue("");
+
+      await deleteTask(req as Request, res as Response, next as NextFunction);
+      expect(next).toHaveBeenCalled();
     });
   });
 });
