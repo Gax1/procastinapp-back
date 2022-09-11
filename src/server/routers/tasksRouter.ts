@@ -28,5 +28,11 @@ tasksRouter.post(
 );
 
 tasksRouter.delete("/my-day", deleteTask);
-tasksRouter.put("/my-day", uploader.single("img"), backUpImge, editTask);
+tasksRouter.put(
+  "/my-day",
+  authentication,
+  uploader.single("img"),
+  backUpImge,
+  editTask
+);
 export default tasksRouter;

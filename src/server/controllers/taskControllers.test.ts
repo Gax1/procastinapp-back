@@ -2,7 +2,12 @@ import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import Task from "../../database/models/Tasks";
 import User from "../../database/models/User";
-import { createTask, deleteTask, getAllTasks } from "./taskControllers";
+import {
+  createTask,
+  deleteTask,
+  editTask,
+  getAllTasks,
+} from "./taskControllers";
 
 const mockedId = new mongoose.Types.ObjectId();
 
@@ -147,6 +152,54 @@ describe("Given a delete task controller", () => {
 
       await deleteTask(req as Request, res as Response, next as NextFunction);
       expect(next).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given a edit task controller", () => {
+  describe("When its called with a request", () => {
+    const editedTask = {
+      date: "test-date",
+      title: "test-title",
+      description: "test-description",
+      img: "test-img",
+      backUpImg: "test-backUpImg",
+      owner: "test-owner",
+      importance: "test-importance",
+    };
+
+    const req = {
+      query: { id: "test-id" },
+      body: {
+        date: "test-date",
+        title: "test-title",
+        description: "test-description",
+        img: "test-img",
+        backUpImg: "test-backUpImg",
+        owner: "test-owner",
+        importance: "test-importance",
+      },
+    } as Partial<Request>;
+
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis(),
+    } as Partial<Response>;
+    const next: NextFunction = jest.fn();
+    test("Then it should call the json method with a new task and the status method with 200", async () => {
+      Task.findByIdAndUpdate = jest.fn().mockResolvedValueOnce(editedTask);
+
+      await editTask(req as Request, res as Response, next as NextFunction);
+
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith({ task: editedTask });
+    });
+    test("Then if receives an error, should call the next method", async () => {
+      Task.findByIdAndUpdate = jest.fn().mockRejectedValueOnce(editedTask);
+
+      await editTask(req as Request, res as Response, next as NextFunction);
+
+      expect(next).toBeCalled();
     });
   });
 });
