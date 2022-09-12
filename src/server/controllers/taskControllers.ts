@@ -127,7 +127,7 @@ export const getTaskById = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { id } = req.query;
+  const { id } = req.params;
 
   try {
     const myTask = await Task.findById(id);

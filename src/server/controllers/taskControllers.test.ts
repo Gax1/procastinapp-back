@@ -216,7 +216,7 @@ describe("Given a getTaskById controller", () => {
     importance: "test-importance",
   };
   const req = {
-    query: { id: "test-id" },
+    params: { id: "test-id" },
   } as Partial<Request>;
 
   const res = {

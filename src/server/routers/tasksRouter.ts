@@ -37,5 +37,5 @@ tasksRouter.put(
   editTask
 );
 
-tasksRouter.get("/my-task", authentication, getTaskById);
+tasksRouter.get("/my-task/:id", authentication, getTaskById);
 export default tasksRouter;
