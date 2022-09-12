@@ -121,3 +121,24 @@ export const editTask = async (
     );
   }
 };
+
+export const getTaskById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.query;
+
+  try {
+    const myTask = await Task.findById(id);
+
+    res.status(200).json({ myTask });
+  } catch (error) {
+    const customError = customErrorGenerator(
+      404,
+      error.message,
+      "Error finding my task"
+    );
+    next(customError);
+  }
+};
