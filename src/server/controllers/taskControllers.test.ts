@@ -7,6 +7,7 @@ import {
   deleteTask,
   editTask,
   getAllTasks,
+  getTaskById,
 } from "./taskControllers";
 
 const mockedId = new mongoose.Types.ObjectId();
@@ -200,6 +201,46 @@ describe("Given a edit task controller", () => {
       await editTask(req as Request, res as Response, next as NextFunction);
 
       expect(next).toBeCalled();
+    });
+  });
+});
+
+describe("Given a getTaskById controller", () => {
+  const myTask = {
+    date: "test-date",
+    title: "test-title",
+    description: "test-description",
+    img: "test-img",
+    backUpImg: "test-backUpImg",
+    owner: "test-owner",
+    importance: "test-importance",
+  };
+  const req = {
+    params: { id: "test-id" },
+  } as Partial<Request>;
+
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn().mockReturnThis(),
+  } as Partial<Response>;
+  const next: NextFunction = jest.fn();
+  describe("When it receives a request with an id", () => {
+    test("Then it should return a new task", async () => {
+      Task.findById = jest.fn().mockResolvedValueOnce(myTask);
+
+      await getTaskById(req as Request, res as Response, next as NextFunction);
+
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith({ myTask });
+    });
+  });
+  describe("When it receives an error", () => {
+    test("Then it should call the enxt method", async () => {
+      Task.findById = jest.fn().mockRejectedValueOnce(myTask);
+
+      await getTaskById(req as Request, res as Response, next as NextFunction);
+
+      expect(next).toHaveBeenCalled();
     });
   });
 });
