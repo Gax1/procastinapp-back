@@ -6,6 +6,7 @@ import {
   deleteTask,
   editTask,
   getAllTasks,
+  getTaskById,
 } from "../controllers/taskControllers";
 import authentication from "../middlewares/authentication";
 import backUpImge from "../middlewares/backUpImage";
@@ -27,7 +28,7 @@ tasksRouter.post(
   createTask
 );
 
-tasksRouter.delete("/my-day", deleteTask);
+tasksRouter.delete("/my-day", authentication, deleteTask);
 tasksRouter.put(
   "/my-day",
   authentication,
@@ -35,4 +36,6 @@ tasksRouter.put(
   backUpImge,
   editTask
 );
+
+tasksRouter.get("/my-task", authentication, getTaskById);
 export default tasksRouter;
