@@ -37,5 +37,13 @@ tasksRouter.put(
   editTask
 );
 
+tasksRouter.put(
+  "/my-day",
+  authentication,
+  uploader.single("img"),
+  backUpImge,
+  editTask
+);
+
 tasksRouter.get("/my-task/:id", authentication, getTaskById);
 export default tasksRouter;
