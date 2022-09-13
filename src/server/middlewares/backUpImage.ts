@@ -24,7 +24,6 @@ const backUpImge = async (req: Request, res: Response, next: NextFunction) => {
   const fileDir = await fs.readFile(path.join("uploads", "img", imgName));
 
   const uploadResult = await storage.upload(imgName, fileDir);
-
   if (uploadResult.error) {
     const error = customErrorGenerator(
       409,
