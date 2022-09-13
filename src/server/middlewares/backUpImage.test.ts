@@ -3,18 +3,20 @@ import backUpImge from "./backUpImage";
 
 let mockedUpload = {};
 
+let mockedStorage: any = {
+  from: () => ({
+    upload: () => mockedUpload,
+    getPublicUrl: () => "test-url",
+  }),
+};
+
 jest.mock("fs");
 
 jest.mock("@supabase/supabase-js", () => ({
   ...jest.requireActual("@supabase/supabase-js"),
 
   createClient: () => ({
-    storage: {
-      from: () => ({
-        upload: () => mockedUpload,
-        getPublicUrl: () => "test-url",
-      }),
-    },
+    storage: mockedStorage,
   }),
 }));
 
@@ -48,6 +50,15 @@ describe("Given a backUp image middleware", () => {
             message: "Error",
           },
         };
+
+        await backUpImge(req as Request, res as Response, next as NextFunction);
+
+        await expect(next).toHaveBeenCalled();
+      });
+    });
+    describe("When it receives an error", () => {
+      test("Then it should call the next function with an error", async () => {
+        mockedStorage = jest.fn().mockRejectedValue("");
 
         await backUpImge(req as Request, res as Response, next as NextFunction);
 
