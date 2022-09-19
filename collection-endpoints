@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "1893617b-2846-4e8e-902e-a08f67d37a0f",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22263850"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{userApi}}/users/login",
+					"host": [
+						"{{userApi}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"naty\",\r\n    \"password\": \"naty\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{userApi}}/users/login",
+					"host": [
+						"{{userApi}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTlmYmVhZTkzOWRiZjcyMWNlOGIxMCIsInVzZXJuYW1lIjoiZ2FibyIsImlhdCI6MTY2MjY0NzM5NX0.zvaR-cl-z9b3hX4AHi4JhPpvEsszZkIo7XTUWNUms5A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{userApi}}/tasks/my-day?date=8/9/2022&id=6319fbeae939dbf721ce8b10",
+					"host": [
+						"{{userApi}}"
+					],
+					"path": [
+						"tasks",
+						"my-day"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "8/9/2022"
+						},
+						{
+							"key": "id",
+							"value": "6319fbeae939dbf721ce8b10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3141/tasks/my-day?id=6319fd37e939dbf721ce8b1b",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTlmYmVhZTkzOWRiZjcyMWNlOGIxMCIsInVzZXJuYW1lIjoiZ2FibyIsImlhdCI6MTY2MjY0NzM5NX0.zvaR-cl-z9b3hX4AHi4JhPpvEsszZkIo7XTUWNUms5A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "My first post",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "This is my first task created, i hope it works",
+							"type": "text"
+						},
+						{
+							"key": "importance",
+							"value": "very",
+							"type": "text"
+						},
+						{
+							"key": "date",
+							"value": "9/9/2022",
+							"type": "text"
+						},
+						{
+							"key": "img",
+							"type": "file",
+							"src": "/C:/Users/GAX/Downloads/pikapika.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{useApi}}/tasks/my-day?id=6319fd37e939dbf721ce8b1b",
+					"host": [
+						"{{useApi}}"
+					],
+					"path": [
+						"tasks",
+						"my-day"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "6319fd37e939dbf721ce8b1b"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3141/tasks/my-day?id=631dbdc7f30423f3533c4119&=",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTlmYmVhZTkzOWRiZjcyMWNlOGIxMCIsInVzZXJuYW1lIjoiZ2FibyIsImlhdCI6MTY2MjY0NzM5NX0.zvaR-cl-z9b3hX4AHi4JhPpvEsszZkIo7XTUWNUms5A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "my first put",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "this is my very first put jejejejejejejejejje",
+							"type": "text"
+						},
+						{
+							"key": "importance",
+							"value": "very",
+							"type": "text"
+						},
+						{
+							"key": "date",
+							"value": "11/9/2022",
+							"type": "text"
+						},
+						{
+							"key": "img",
+							"type": "file",
+							"src": "/C:/Users/GAX/Downloads/1cdb3c.png"
+						},
+						{
+							"key": "backUpImg",
+							"value": "pepep",
+							"type": "text"
+						},
+						{
+							"key": "owner",
+							"value": "6319fd37e939dbf721ce8b1b",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{useApi}}/tasks/my-day?id=631b2c7408b22a1afb975e34",
+					"host": [
+						"{{useApi}}"
+					],
+					"path": [
+						"tasks",
+						"my-day"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "631b2c7408b22a1afb975e34"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{useApi}}/tasks/my-day",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{useApi}}/tasks/my-day",
+					"host": [
+						"{{useApi}}"
+					],
+					"path": [
+						"tasks",
+						"my-day"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userApi",
+			"value": "https://procastinapp.herokuapp.com",
+			"type": "string"
+		}
+	]
+}
